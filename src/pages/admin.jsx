@@ -6,7 +6,7 @@ import { useAuthStore } from '../storage/useAuthStore';
 
 export default function Admin() {
     const currentUser = useAuthStore(state => state.currentUser);
-    const { users, updateUser, deleteUser, isLoading: usersLoading } = useUsers();
+    const { users, updateUser, deleteUser, uploadImage, isLoading: usersLoading } = useUsers();
     const { products, isLoading: prodsLoading } = useProducts();
     const { returns, isLoading: returnsLoading } = useReturns();
 
@@ -15,6 +15,8 @@ export default function Admin() {
     const [tempBirth, setTempBirth] = useState('');
     const [tempPass, setTempPass] = useState('');
     const [tempId, setTempId] = useState('');
+    const [tempImgFile, setTempImgFile] = useState(null);
+    const [tempImgUrl, setTempImgUrl] = useState('');
 
     const [editingRoleUser, setEditingRoleUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
@@ -26,6 +28,8 @@ export default function Admin() {
             setTempBirth(currentUser.birthdate || '');
             setTempPass(currentUser.password || '');
             setTempId(currentUser.idNumber || '');
+            setTempImgUrl(currentUser.imageUrl || '');
+            setTempImgFile(null);
         }
     }, [currentUser]);
 
@@ -37,13 +41,26 @@ export default function Admin() {
 
     async function handleProfileUpdate(e) {
         e.preventDefault();
+
+        let finalImgUrl = tempImgUrl;
+        if (tempImgFile) {
+            try {
+                finalImgUrl = await uploadImage(tempImgFile);
+                setTempImgUrl(finalImgUrl);
+            } catch (err) {
+                alert('Failed to upload image');
+                return;
+            }
+        }
+
         await updateUser({
             id: currentUser.id,
             name: tempName,
             email: tempEmail,
             birthdate: tempBirth,
             password: tempPass,
-            idNumber: tempId
+            idNumber: tempId,
+            imageUrl: finalImgUrl
         });
         alert('Profile saved successfully!');
     }
@@ -104,6 +121,31 @@ export default function Admin() {
                     </div>
                     <div className="content-container content-container-padded">
                         <form onSubmit={handleProfileUpdate}>
+                            <div className="profile-pic-wrapper">
+                                <div className="profile-pic-preview">
+                                    {tempImgUrl || (tempImgFile && URL.createObjectURL(tempImgFile)) ? (
+                                        <img src={tempImgFile ? URL.createObjectURL(tempImgFile) : tempImgUrl} alt="Profile" className="profile-pic-img" />
+                                    ) : (
+                                        <span className="profile-pic-icon">👤</span>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="label">Profile Picture</label>
+                                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                        <input type="file" accept="image/*" onChange={(e) => setTempImgFile(e.target.files[0])} className="input" style={{ flex: 1 }} />
+                                        {(tempImgUrl || tempImgFile) && (
+                                            <button 
+                                                type="button" 
+                                                onClick={() => { setTempImgUrl(''); setTempImgFile(null); }} 
+                                                className="btn-danger"
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="form-row form-group-spacer">
                                 <div className="form-col">
                                     <label className="label">Name</label>

@@ -15,10 +15,14 @@ const PORT = 5000;
 // storage directories
 const storageDir = path.join(__dirname, '../storage');
 const uploadsDir = path.join(storageDir, 'uploads');
+const profileUploadsDir = path.join(storageDir, 'profile');
 
-// create storage directory if it doesn't exist
+// create storage directories if they don't exist
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
+}
+if (!fs.existsSync(profileUploadsDir)) {
+    fs.mkdirSync(profileUploadsDir, { recursive: true });
 }
 
 // Default data for the database (db.json)
@@ -45,6 +49,7 @@ const db = await JSONFilePreset(path.join(storageDir, 'db.json'), defaultData);
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(uploadsDir));
+app.use('/profile-images', express.static(profileUploadsDir));
 
 // file upload configuration
 const storage = multer.diskStorage({
@@ -56,6 +61,16 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage });
+
+const profileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, profileUploadsDir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, 'profile_' + Date.now() + path.extname(file.originalname));
+    }
+});
+const uploadProfile = multer({ storage: profileStorage });
 
 // Products
 app.get('/api/products', (req, res) => {
@@ -167,6 +182,14 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
         return res.status(400).json({ message: 'No file uploaded' });
     }
     const imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+    res.json({ imageUrl });
+});
+
+app.post('/api/upload-profile', uploadProfile.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+    const imageUrl = `http://localhost:${PORT}/profile-images/${req.file.filename}`;
     res.json({ imageUrl });
 });
 

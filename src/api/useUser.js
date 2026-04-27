@@ -38,11 +38,23 @@ export const useUsers = () => {
     },
   });
 
+  const uploadImageMutation = useMutation({
+    mutationFn: async (file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      const { data } = await client.post('/upload-profile', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return data.imageUrl;
+    },
+  });
+
   return {
     users: usersQuery.data || [],
     isLoading: usersQuery.isLoading,
     isError: usersQuery.isError,
     updateUser: updateUserMutation.mutateAsync,
     deleteUser: deleteUserMutation.mutateAsync,
+    uploadImage: uploadImageMutation.mutateAsync,
   };
 };

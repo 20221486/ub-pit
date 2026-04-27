@@ -30,7 +30,8 @@
       "email": "admin@example.com",
       "birthdate": "",
       "password": "admin",
-      "idNumber": "0000"
+      "idNumber": "0000",
+      "imageUrl": "http://localhost:5000/profile-images/profile_1777333701609.png"
     },
     {
       "id": 1777332166235,
@@ -39,7 +40,8 @@
       "password": "20221486",
       "name": "Elijah Crisostomo",
       "idNumber": "20221486",
-      "birthdate": "12/25/2005"
+      "birthdate": "12/25/2005",
+      "imageUrl": "http://localhost:5000/profile-images/profile_1777333826824.jpg"
     },
     {
       "id": 1777333074619,
