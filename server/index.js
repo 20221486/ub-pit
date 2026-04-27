@@ -25,14 +25,17 @@ if (!fs.existsSync(uploadsDir)) {
 const defaultData = {
     products: [],
     returns: [],
-    users: {
-        name: 'John Doe',
-        role: 'admin',
-        email: 'admin@example.com',
-        birthdate: '1990-01-01',
-        password: '',
-        idNumber: '1234567'
-    }
+    users: [
+        {
+            id: 1,
+            name: 'Elijah',
+            role: 'admin',
+            email: 'admin@example.com',
+            birthdate: '',
+            password: 'admin',
+            idNumber: '0000'
+        }
+    ]
 };
 
 // Initialize Lowdb database
@@ -116,15 +119,39 @@ app.delete('/api/returns/:id', async (req, res) => {
     res.status(204).end();
 });
 
-// User Profile
-app.get('/api/user', (req, res) => {
+// Authentication
+app.post('/api/login', (req, res) => {
+    const { email, password } = req.body;
+    const user = db.data.users.find(u => u.email === email && u.password === password);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
+});
+
+app.post('/api/register', async (req, res) => {
+    const newUser = { id: Date.now(), role: 'user', ...req.body };
+    db.data.users.push(newUser);
+    await db.write();
+    res.status(201).json(newUser);
+});
+
+// User Profile Management
+app.get('/api/users', (req, res) => {
     res.json(db.data.users);
 });
 
-app.put('/api/user', async (req, res) => {
-    db.data.users = { ...db.data.users, ...req.body };
-    await db.write();
-    res.json(db.data.users);
+app.put('/api/users/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = db.data.users.findIndex(u => u.id === id);
+    if (index !== -1) {
+        db.data.users[index] = { ...db.data.users[index], ...req.body };
+        await db.write();
+        res.json(db.data.users[index]);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
 });
 
 // File Upload

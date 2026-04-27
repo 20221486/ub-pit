@@ -12,12 +12,15 @@
     }
   ],
   "returns": [],
-  "users": {
-    "name": "Elijah",
-    "role": "admin",
-    "email": "admin@example.com",
-    "birthdate": "",
-    "password": "",
-    "idNumber": ""
-  }
+  "users": [
+    {
+      "id": 1,
+      "name": "Elijah",
+      "role": "admin",
+      "email": "admin@example.com",
+      "birthdate": "",
+      "password": "admin",
+      "idNumber": "0000"
+    }
+  ]
 }
