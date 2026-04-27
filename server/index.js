@@ -28,7 +28,7 @@ const defaultData = {
     users: {
         name: 'John Doe',
         role: 'admin',
-        email: [EMAIL_ADDRESS]',
+        email: 'admin@example.com',
         birthdate: '1990-01-01',
         password: '',
         idNumber: '1234567'

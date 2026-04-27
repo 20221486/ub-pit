@@ -9,7 +9,7 @@ import './styles/App.css'
 function App() {
   const location = useLocation();
 
-  useEffect(()=>{
+  useEffect(() => {
     switch (location.pathname) {
       case '/admin': document.title = 'UB | Admin'; break;
       case '/management': document.title = 'UB | Product Management'; break;
@@ -19,11 +19,11 @@ function App() {
   }, [location]);
 
   return (
-    <div className = "root-container">
+    <div className="root-container">
       <NavigationBar>
-        <main className = 'root_page-container'>
+        <main className='root_page-container'>
           <Routes>
-            <Route path = "/" element = {Navigate to = "/admin" replace />} />
+            <Route path="/" element={<Navigate to="/admin" replace />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/management" element={<Management />} />
             <Route path="/return" element={<Return />} />

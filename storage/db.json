@@ -1,0 +1,12 @@
+{
+  "products": [],
+  "returns": [],
+  "users": {
+    "name": "Elijah",
+    "role": "admin",
+    "email": "admin@example.com",
+    "birthdate": "",
+    "password": "",
+    "idNumber": ""
+  }
+}
