@@ -29,10 +29,20 @@ export const useUsers = () => {
     },
   });
 
+  const deleteUserMutation = useMutation({
+    mutationFn: async (id) => {
+      await client.delete(`/users/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+
   return {
     users: usersQuery.data || [],
     isLoading: usersQuery.isLoading,
     isError: usersQuery.isError,
     updateUser: updateUserMutation.mutateAsync,
+    deleteUser: deleteUserMutation.mutateAsync,
   };
 };

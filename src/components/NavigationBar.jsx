@@ -20,12 +20,12 @@ export default function NavigationBar() {
         <nav className="NavigationBar">
             <div className="navigation-container">
                 <div className="navigation-links-wrapper">
-                    <NavLink to="/admin" className={getLinkClass}> Admin</NavLink>
-                    {currentUser?.role === 'admin' && (
-                        <>
-                            <NavLink to="/management" className={getLinkClass}> Product Management</NavLink>
-                            <NavLink to="/return" className={getLinkClass}> Product Return</NavLink>
-                        </>
+                    <NavLink to="/admin" className={getLinkClass}> Account Panel</NavLink>
+                    {['admin', 'product-manager'].includes(currentUser?.role) && (
+                        <NavLink to="/management" className={getLinkClass}> Product Management</NavLink>
+                    )}
+                    {['admin', 'logistics-handler'].includes(currentUser?.role) && (
+                        <NavLink to="/return" className={getLinkClass}> Product Return</NavLink>
                     )}
                 </div>
 

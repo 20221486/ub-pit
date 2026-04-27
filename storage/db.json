@@ -7,7 +7,7 @@
       "barcode": "",
       "description": "",
       "category": "Electronics",
-      "imageUrl": "",
+      "imageUrl": "http://localhost:5000/uploads/1777332465512.png",
       "isArchived": false
     }
   ],
@@ -24,11 +24,20 @@
     },
     {
       "id": 1777332166235,
+      "role": "admin",
+      "email": "20221486@s.ubaguio.edu",
+      "password": "20221486",
+      "name": "Elijah Crisostomo",
+      "idNumber": "20221486",
+      "birthdate": "12/25/2005"
+    },
+    {
+      "id": 1777333074619,
       "role": "user",
-      "email": "20261486@s.ubaguio.edu",
-      "password": "test",
-      "name": "johndoe",
-      "idNumber": "20261486",
+      "email": "logistics@email.com",
+      "password": "logistics",
+      "name": "logistics",
+      "idNumber": "1111",
       "birthdate": ""
     }
   ]

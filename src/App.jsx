@@ -47,8 +47,8 @@ function App() {
           <Route path="/" element={<Navigate to="/admin" replace />} />
           <Route path="/auth" element={<Navigate to="/admin" replace />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/management" element={currentUser.role === 'admin' ? <Management /> : <Navigate to="/admin" replace />} />
-          <Route path="/return" element={currentUser.role === 'admin' ? <Return /> : <Navigate to="/admin" replace />} />
+          <Route path="/management" element={['admin', 'product-manager'].includes(currentUser.role) ? <Management /> : <Navigate to="/admin" replace />} />
+          <Route path="/return" element={['admin', 'logistics-handler'].includes(currentUser.role) ? <Return /> : <Navigate to="/admin" replace />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Routes>
       </main>

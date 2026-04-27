@@ -154,6 +154,13 @@ app.put('/api/users/:id', async (req, res) => {
     }
 });
 
+app.delete('/api/users/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    db.data.users = db.data.users.filter(u => u.id !== id);
+    await db.write();
+    res.status(204).end();
+});
+
 // File Upload
 app.post('/api/upload', upload.single('image'), (req, res) => {
     if (!req.file) {

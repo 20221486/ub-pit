@@ -6,7 +6,7 @@ import { useAuthStore } from '../storage/useAuthStore';
 
 export default function Admin() {
     const currentUser = useAuthStore(state => state.currentUser);
-    const { users, updateUser, isLoading: usersLoading } = useUsers();
+    const { users, updateUser, deleteUser, isLoading: usersLoading } = useUsers();
     const { products, isLoading: prodsLoading } = useProducts();
     const { returns, isLoading: returnsLoading } = useReturns();
 
@@ -52,6 +52,20 @@ export default function Admin() {
         }
         const nextRole = targetUser.role === 'admin' ? 'user' : 'admin';
         await updateUser({ id: targetUser.id, role: nextRole });
+    }
+
+    async function handleDeleteUser(targetUser) {
+        if (targetUser.id === currentUser.id) {
+            alert('You cannot delete your own account.');
+            return;
+        }
+        if (targetUser.role === 'admin') {
+            alert('You cannot delete another admin account.');
+            return;
+        }
+        if (window.confirm(`Are you sure you want to delete ${targetUser.name}'s account?`)) {
+            await deleteUser(targetUser.id);
+        }
     }
 
     return (
@@ -118,8 +132,8 @@ export default function Admin() {
                 {currentUser.role === 'admin' && (
                     <section>
                         <div className="section-header">
-                            <h2 className="section-title">Role Management</h2>
-                            <p className="section-subtitle">Control Permissions</p>
+                            <h2 className="section-title">User Management</h2>
+                            <p className="section-subtitle">Control Permissions & Accounts</p>
                         </div>
                         <div className="content-container">
                             <div className="user-list">
@@ -134,6 +148,7 @@ export default function Admin() {
                                                 {u.role}
                                             </span>
                                             <button onClick={() => handleToggleRole(u)} className="btn-small btn-edit">Change</button>
+                                            <button onClick={() => handleDeleteUser(u)} className="btn-small" style={{ backgroundColor: '#f63b3b', color: '#fff', border: 'none', padding: '0.25rem 0.75rem', borderRadius: '4px', cursor: 'pointer', marginLeft: '0.5rem' }}>Delete</button>
                                         </div>
                                     </div>
                                 ))}
