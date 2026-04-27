@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
+import Admin from './pages/admin';
+import Management from './pages/management';
+import Return from './pages/return';
 import './styles/App.css'
 
 function App() {
@@ -16,13 +19,19 @@ function App() {
   }, [location]);
 
   return (
-    <div className = "root-container"
-    <NavigationBar>
-    
-    <main className = 'root_page-container'>
-
-    </main>
-
-    </NavigationBar>
-  )
+    <div className = "root-container">
+      <NavigationBar>
+        <main className = 'root_page-container'>
+          <Routes>
+            <Route path = "/" element = {Navigate to = "/admin" replace />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/management" element={<Management />} />
+            <Route path="/return" element={<Return />} />
+          </Routes>
+        </main>
+      </NavigationBar>
+    </div>
+  );
 }
+
+export default App;
