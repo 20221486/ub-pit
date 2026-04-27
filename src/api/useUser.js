@@ -1,31 +1,38 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import client from './client';
+import { useAuthStore } from '../storage/useAuthStore';
 
-export const useUser = () => {
+export const useUsers = () => {
   const queryClient = useQueryClient();
+  const updateSessionProfile = useAuthStore(state => state.updateSessionProfile);
+  const currentUser = useAuthStore(state => state.currentUser);
 
-  const userQuery = useQuery({
-    queryKey: ['user'],
+  const usersQuery = useQuery({
+    queryKey: ['users'],
     queryFn: async () => {
-      const { data } = await client.get('/user');
+      const { data } = await client.get('/users');
       return data;
     },
   });
 
   const updateUserMutation = useMutation({
-    mutationFn: async (updatedData) => {
-      const { data } = await client.put('/user', updatedData);
+    mutationFn: async ({ id, ...updatedData }) => {
+      const { data } = await client.put(`/users/${id}`, updatedData);
       return data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      // If the updated user is the currently logged in user, update the local session too
+      if (currentUser && currentUser.id === data.id) {
+          updateSessionProfile(data);
+      }
     },
   });
 
   return {
-    user: userQuery.data,
-    isLoading: userQuery.isLoading,
-    isError: userQuery.isError,
+    users: usersQuery.data || [],
+    isLoading: usersQuery.isLoading,
+    isError: usersQuery.isError,
     updateUser: updateUserMutation.mutateAsync,
   };
 };
