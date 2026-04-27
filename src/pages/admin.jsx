@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useProducts } from '../api/useProducts';
 import { useReturns } from '../api/useReturns';
-import { useUser } from '../api/useUser';
+import { useUsers } from '../api/useUser';
+import { useAuthStore } from '../storage/useAuthStore';
 
 export default function Admin() {
-    const { user, updateUser, isLoading: userLoading } = useUser();
+    const currentUser = useAuthStore(state => state.currentUser);
+    const { users, updateUser, isLoading: usersLoading } = useUsers();
     const { products, isLoading: prodsLoading } = useProducts();
     const { returns, isLoading: returnsLoading } = useReturns();
 
@@ -14,15 +16,15 @@ export default function Admin() {
     const [tempId, setTempId] = useState('');
 
     useEffect(() => {
-        if (user) {
-            setTempName(user.name || '');
-            setTempBirth(user.birthdate || '');
-            setTempPass(user.password || '');
-            setTempId(user.idNumber || '');
+        if (currentUser) {
+            setTempName(currentUser.name || '');
+            setTempBirth(currentUser.birthdate || '');
+            setTempPass(currentUser.password || '');
+            setTempId(currentUser.idNumber || '');
         }
-    }, [user]);
+    }, [currentUser]);
 
-    if (userLoading || prodsLoading || returnsLoading) return <div className="loading-state">Loading dashboard...</div>;
+    if (usersLoading || prodsLoading || returnsLoading || !currentUser) return <div className="loading-state">Loading dashboard...</div>;
 
     const totalProds = products.length;
     const activeProds = products.filter(function (p) { return !p.isArchived; }).length;
@@ -31,6 +33,7 @@ export default function Admin() {
     async function handleProfileUpdate(e) {
         e.preventDefault();
         await updateUser({
+            id: currentUser.id,
             name: tempName,
             birthdate: tempBirth,
             password: tempPass,
@@ -39,15 +42,19 @@ export default function Admin() {
         alert('Profile saved successfully!');
     }
 
-    async function handleToggleRole() {
-        const nextRole = user.role === 'admin' ? 'user' : 'admin';
-        await updateUser({ role: nextRole });
+    async function handleToggleRole(targetUser) {
+        if (targetUser.email === 'admin@example.com') {
+            alert('Cannot change the role of the default admin.');
+            return;
+        }
+        const nextRole = targetUser.role === 'admin' ? 'user' : 'admin';
+        await updateUser({ id: targetUser.id, role: nextRole });
     }
 
     return (
         <div>
             <div className="section-header">
-                <div><h1 className="section-title">Hello, {user.name}</h1><p className="section-subtitle">ID: {user.idNumber}</p></div>
+                <div><h1 className="section-title">Hello, {currentUser.name}</h1><p className="section-subtitle">ID: {currentUser.idNumber}</p></div>
             </div>
 
             <div className="stats-grid">
@@ -80,7 +87,7 @@ export default function Admin() {
                                 </div>
                                 <div className="form-col">
                                     <label className="label">Email</label>
-                                    <input type="text" className="input input-readonly" value={user.email} readOnly />
+                                    <input type="text" className="input input-readonly" value={currentUser.email} readOnly />
                                 </div>
                             </div>
 
@@ -105,28 +112,32 @@ export default function Admin() {
                     </div>
                 </section>
 
-                <section>
-                    <div className="section-header">
-                        <h2 className="section-title">Role Management</h2>
-                        <p className="section-subtitle">Control Permissions</p>
-                    </div>
-                    <div className="content-container">
-                        <div className="user-list">
-                            <div className="user-item">
-                                <div className="user-info">
-                                    <span className="user-name">{user.name}</span>
-                                    <span className="user-email">{user.email}</span>
-                                </div>
-                                <div className="user-item-actions">
-                                    <span className={`badge ${user.role === 'admin' ? 'role-admin' : 'role-user'}`}>
-                                        {user.role}
-                                    </span>
-                                    <button onClick={handleToggleRole} className="btn-small btn-edit">Change</button>
-                                </div>
+                {currentUser.role === 'admin' && (
+                    <section>
+                        <div className="section-header">
+                            <h2 className="section-title">Role Management</h2>
+                            <p className="section-subtitle">Control Permissions</p>
+                        </div>
+                        <div className="content-container">
+                            <div className="user-list">
+                                {users.map(u => (
+                                    <div className="user-item" key={u.id}>
+                                        <div className="user-info">
+                                            <span className="user-name">{u.name}</span>
+                                            <span className="user-email">{u.email}</span>
+                                        </div>
+                                        <div className="user-item-actions">
+                                            <span className={`badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}`}>
+                                                {u.role}
+                                            </span>
+                                            <button onClick={() => handleToggleRole(u)} className="btn-small btn-edit">Change</button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                )}
             </div>
         </div>
     );
