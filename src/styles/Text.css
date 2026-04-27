@@ -1,0 +1,77 @@
+/* global text Defaults */
+body {
+  color: #333333;
+  line-height: 1.4;
+}
+
+/* page & Section headers */
+.section-title {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #F5DEB3;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 0.65rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #F5DEB3;
+  margin-top: 0.1rem;
+}
+
+/* modal headers */
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #F5DEB3;
+}
+
+/* form Labels & placeholders */
+.label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #333333;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* empty State */
+.empty-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+.empty-subtext {
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+  color: #666666;
+}
+
+/* Dashbard Specific Text */
+.stat-label {
+  font-size: 0.75rem;
+  color: #333333;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #666666;
+  margin-top: 0.25rem;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #333333;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: #64748b;
+}

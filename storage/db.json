@@ -1,5 +1,16 @@
 {
-  "products": [],
+  "products": [
+    {
+      "id": 1777331375280,
+      "productName": "Laptop",
+      "sku": "LAP-123",
+      "barcode": "",
+      "description": "",
+      "category": "Electronics",
+      "imageUrl": "",
+      "isArchived": false
+    }
+  ],
   "returns": [],
   "users": {
     "name": "Elijah",

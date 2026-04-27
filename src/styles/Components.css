@@ -1,0 +1,263 @@
+/* containrs */
+.section-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background-color: #333333;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.archive-header-spacer {
+  margin-top: 2.5rem;
+}
+
+.content-container {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #333333;
+  border-top: none;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.75rem 1.25rem;
+  color: #e11d1d;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.td {
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.td-sku {
+  font-family: monospace;
+  color: #64748b;
+}
+
+.td-desc {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #666666;
+  font-size: 0.8rem;
+}
+
+.td-desc-empty {
+  font-style: italic;
+  color: #94a3b8;
+}
+
+.product-cell-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-thumbnail {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+}
+
+.product-thumbnail-placeholder {
+  width: 36px;
+  height: 36px;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #94a3b8;
+}
+
+.tr:last-child .td {
+  border-bottom: none;
+}
+
+.th-right,
+.td-right {
+  text-align: right;
+}
+
+/* badges */
+.badge {
+  background-color: rgba(255, 0, 0, 0.05);
+  color: #60a5fa;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+/* BUTTONS */
+.btn-primary {
+  background-color: #C9302C;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  font-size: 0.85rem;
+}
+
+.btn-primary:hover {
+  background-color: #f63b3b;
+}
+
+.btn-action-group {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.btn-small {
+  padding: 0.2rem 0.4rem;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.btn-edit {
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+}
+
+.btn-delete {
+  border: 1px solid #f63b3b;
+  color: #f63b3b;
+}
+
+.btn-log {
+  color: #10b981;
+  border: 1px solid #10b981;
+}
+
+.btn-log:hover {
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+/* Modals section */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #333333;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  background-color: #333333;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #F5DEB3;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* forms logic */
+.form-body {
+  padding: 1.25rem 1.25rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-col {
+  flex: 1;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #333333;
+  font-size: 0.9rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #f63b3b;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin: 1.25rem -1.25rem 0 -1.25rem;
+  padding: 0.5rem 1.25rem;
+  background-color: #F8F8F8E6;
+  border-top: 1px solid #333333;
+}
+
+.btn-cancel {
+  padding: 0.4rem 1rem;
+  border: 1px solid #666666;
+  background-color: white;
+  color: #333333;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.btn-save {
+  padding: 0.4rem 1.5rem;
+  border: none;
+  background-color: #C9302C;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+/* empty states styles */
+.empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
+}

@@ -1,0 +1,54 @@
+/* navbar setup */
+.NavigationBar {
+  background-color: #333333;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 50px;
+}
+
+.navigation-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.navigation-links-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: #e4e4e7;
+  text-decoration: none;
+  padding: 0 0.75rem;
+  height: 100%;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #444444;
+}
+
+.nav-link.active {
+  background-color: #f63b3b;
+  color: #ffffff;
+}
+
+.navigation-icon {
+  display: flex;
+  align-items: center;
+}
+
+.ubLogo {
+  height: 32px;
+}
