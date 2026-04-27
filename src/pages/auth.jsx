@@ -25,7 +25,7 @@ export default function Auth() {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '4rem auto' }}>
+        <div className="auth-container">
             <div className="section-header">
                 <div>
                     <h1 className="section-title">{isLoginMode ? 'Sign In' : 'Create Account'}</h1>
@@ -60,16 +60,16 @@ export default function Auth() {
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" className="input" />
                     </div>
 
-                    <button type="submit" className="btn-primary" disabled={isLoggingIn || isRegistering} style={{ width: '100%', marginTop: '1rem' }}>
+                    <button type="submit" className="btn-primary auth-submit" disabled={isLoggingIn || isRegistering}>
                         {isLoggingIn || isRegistering ? 'Processing...' : (isLoginMode ? 'Login' : 'Register')}
                     </button>
                 </form>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <div className="auth-toggle-wrapper">
                 <button 
                     onClick={() => setIsLoginMode(!isLoginMode)} 
-                    style={{ background: 'none', border: 'none', color: '#a1a1aa', cursor: 'pointer', textDecoration: 'underline' }}
+                    className="auth-toggle-btn"
                 >
                     {isLoginMode ? "Don't have an account? Register" : "Already have an account? Login"}
                 </button>

@@ -261,3 +261,69 @@
   padding: 3rem 1rem;
   text-align: center;
 }
+
+.modal-body {
+  padding: 1.25rem;
+}
+
+.modal-text {
+  margin-bottom: 1rem;
+  color: #666666;
+}
+
+.modal-select {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.btn-danger {
+  background-color: #f63b3b;
+  color: #fff;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.btn-danger:hover {
+  background-color: #C9302C;
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: 4rem auto;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
+.auth-toggle-wrapper {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.auth-toggle-btn {
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.nav-logout-btn {
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+.nav-logout-btn:hover {
+  color: #333333;
+}

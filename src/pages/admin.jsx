@@ -16,6 +16,9 @@ export default function Admin() {
     const [tempPass, setTempPass] = useState('');
     const [tempId, setTempId] = useState('');
 
+    const [editingRoleUser, setEditingRoleUser] = useState(null);
+    const [selectedRole, setSelectedRole] = useState('');
+
     useEffect(() => {
         if (currentUser) {
             setTempName(currentUser.name || '');
@@ -45,13 +48,17 @@ export default function Admin() {
         alert('Profile saved successfully!');
     }
 
-    async function handleToggleRole(targetUser) {
-        if (targetUser.email === 'admin@example.com') {
+    async function handleSaveRole() {
+        if (!editingRoleUser) return;
+
+        if (editingRoleUser.email === 'admin@example.com' && selectedRole !== 'admin') {
             alert('Cannot change the role of the default admin.');
+            setEditingRoleUser(null);
             return;
         }
-        const nextRole = targetUser.role === 'admin' ? 'user' : 'admin';
-        await updateUser({ id: targetUser.id, role: nextRole });
+
+        await updateUser({ id: editingRoleUser.id, role: selectedRole });
+        setEditingRoleUser(null);
     }
 
     async function handleDeleteUser(targetUser) {
@@ -147,8 +154,8 @@ export default function Admin() {
                                             <span className={`badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}`}>
                                                 {u.role}
                                             </span>
-                                            <button onClick={() => handleToggleRole(u)} className="btn-small btn-edit">Change</button>
-                                            <button onClick={() => handleDeleteUser(u)} className="btn-small" style={{ backgroundColor: '#f63b3b', color: '#fff', border: 'none', padding: '0.25rem 0.75rem', borderRadius: '4px', cursor: 'pointer', marginLeft: '0.5rem' }}>Delete</button>
+                                            <button onClick={() => { setEditingRoleUser(u); setSelectedRole(u.role); }} className="btn-small btn-edit">Change</button>
+                                            <button onClick={() => handleDeleteUser(u)} className="btn-danger">Delete</button>
                                         </div>
                                     </div>
                                 ))}
@@ -157,6 +164,34 @@ export default function Admin() {
                     </section>
                 )}
             </div>
+
+            {editingRoleUser && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3 className="modal-title">Change Role</h3>
+                            <button onClick={() => setEditingRoleUser(null)} className="modal-close">&times;</button>
+                        </div>
+                        <div className="modal-body">
+                            <p className="modal-text">Select a new role for <strong>{editingRoleUser.name}</strong></p>
+                            <select 
+                                value={selectedRole} 
+                                onChange={(e) => setSelectedRole(e.target.value)}
+                                className="input modal-select"
+                            >
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="product-manager">Product Manager</option>
+                                <option value="logistics-handler">Logistics Handler</option>
+                            </select>
+                            <div className="form-actions">
+                                <button onClick={() => setEditingRoleUser(null)} className="btn-cancel">Cancel</button>
+                                <button onClick={handleSaveRole} className="btn-save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

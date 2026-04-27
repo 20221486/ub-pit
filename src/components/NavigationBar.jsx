@@ -30,7 +30,7 @@ export default function NavigationBar() {
                 </div>
 
                 <div className="navigation-icon">
-                    <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#e4e4e7', cursor: 'pointer', marginRight: '1rem', fontWeight: 500 }}>Logout</button>
+                    <button onClick={handleLogout} className="nav-logout-btn">Logout</button>
                     <img src={ubLogo} alt="UB" className="ubLogo" />
                 </div>
             </div>

@@ -8,10 +8,20 @@
       "description": "",
       "category": "Electronics",
       "imageUrl": "http://localhost:5000/uploads/1777332465512.png",
-      "isArchived": false
+      "isArchived": true
     }
   ],
-  "returns": [],
+  "returns": [
+    {
+      "id": 1777333311435,
+      "isArchived": false,
+      "referenceOrder": "LOG-LAP-123",
+      "product": "Laptop",
+      "quantity": 1,
+      "reason": "Defective",
+      "condition": "Pending"
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -33,7 +43,7 @@
     },
     {
       "id": 1777333074619,
-      "role": "user",
+      "role": "logistics-handler",
       "email": "logistics@email.com",
       "password": "logistics",
       "name": "logistics",
