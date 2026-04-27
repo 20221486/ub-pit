@@ -11,6 +11,7 @@ export default function Admin() {
     const { returns, isLoading: returnsLoading } = useReturns();
 
     const [tempName, setTempName] = useState('');
+    const [tempEmail, setTempEmail] = useState('');
     const [tempBirth, setTempBirth] = useState('');
     const [tempPass, setTempPass] = useState('');
     const [tempId, setTempId] = useState('');
@@ -18,6 +19,7 @@ export default function Admin() {
     useEffect(() => {
         if (currentUser) {
             setTempName(currentUser.name || '');
+            setTempEmail(currentUser.email || '');
             setTempBirth(currentUser.birthdate || '');
             setTempPass(currentUser.password || '');
             setTempId(currentUser.idNumber || '');
@@ -35,6 +37,7 @@ export default function Admin() {
         await updateUser({
             id: currentUser.id,
             name: tempName,
+            email: tempEmail,
             birthdate: tempBirth,
             password: tempPass,
             idNumber: tempId
@@ -87,7 +90,7 @@ export default function Admin() {
                                 </div>
                                 <div className="form-col">
                                     <label className="label">Email</label>
-                                    <input type="text" className="input input-readonly" value={currentUser.email} readOnly />
+                                    <input type="email" className="input" value={tempEmail} onChange={(e) => setTempEmail(e.target.value)} />
                                 </div>
                             </div>
 

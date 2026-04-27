@@ -15,12 +15,21 @@
   "users": [
     {
       "id": 1,
-      "name": "Elijah",
+      "name": "admin",
       "role": "admin",
       "email": "admin@example.com",
       "birthdate": "",
       "password": "admin",
       "idNumber": "0000"
+    },
+    {
+      "id": 1777332166235,
+      "role": "user",
+      "email": "20261486@s.ubaguio.edu",
+      "password": "test",
+      "name": "johndoe",
+      "idNumber": "20261486",
+      "birthdate": ""
     }
   ]
 }
